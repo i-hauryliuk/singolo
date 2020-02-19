@@ -93,35 +93,35 @@
 }
 
 .page {
-  min-width: 320px;
   margin: 0;
 }
 
 .page-header {
   max-width: 1020px;
-  min-height: 5.5625rem;
+  min-height: 89px;
   margin: 0 auto;
 
-  border-bottom: 0.375rem solid rgb(50, 55, 70);
   background-color: rgb(45, 48, 58);
+  border-bottom: 6px solid rgb(50, 55, 70);
 }
 
 .header-wrapper {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  align-items: flex-start;
-  box-sizing: border-box;
+  align-items: baseline;
   max-width: 960px;
   margin: 0 auto;
-  padding: 1.9rem 10px 0;
+  padding: 32px 10px 0;
+  box-sizing: border-box;
 }
 
 .logo-text {
   font-weight: 700;
-  font-size: 1.56rem;
+  font-size: 1.5625rem;
   color: rgb(255, 255, 255);
-  letter-spacing: -0.032em;
+  letter-spacing: -0.033em;
+  text-transform: uppercase;
 }
 
 .logo-text::after {
@@ -130,9 +130,8 @@
 }
 
 .header-nav {
-  margin: 0 -0.3em;
-  padding: 0.6rem 0;
-
+  margin: 0 -0.4em 0 0;
+  
   font-size: 0.75rem;
 }
 
@@ -149,17 +148,7 @@
 .nav-item {
   position: relative;
 
-  margin: 0 0.74rem;
-}
-
-.nav-item:not(:last-child)::after {
-  position: absolute;
-  top: 0.05rem;
-  right: -0.88rem;
-
-  color: rgb(73, 78, 98);
-
-  content: "·";
+  margin: 0 0.87em;
 }
 
 .nav-item:first-child {
@@ -170,26 +159,41 @@
   margin-right: 0;
 }
 
+.nav-item:not(:last-child)::after {
+  position: absolute;
+  top: 0.125em;
+  right: -1em;
+
+  color: rgb(73, 78, 98);
+
+  content: "·";
+}
+
+.nav-item:not(.current):hover::before {
+  position: absolute;
+  height: 0.15em;
+  top: -0.2em;
+  left: 0.4em;
+  right: 0.4em;
+
+  background-color: rgb(240, 108, 100);
+
+  content: "";
+}
+
 .nav-link {
   display: inline-block;
-  padding: 0.2em 0.3em;
-  padding-bottom: 0.1em;
+  padding: 0.2em 0.4em 0.1em;
 
   font-weight: 700;
-  font-size: 0.75rem;
-  text-decoration: none;
+  font-size: 1em;
+  letter-spacing: -0.02em;
   color: rgb(255, 255, 255);
-  letter-spacing: -0.026em;
-
-  border-bottom: 1.5px solid transparent;
-
+  text-transform: uppercase;
+  text-decoration: none;
 }
 
-.nav-link:not(.current):hover {
-  border-bottom-color: rgb(255, 255, 255);
-}
-
-.current {
+.nav-link:not([href]) {
   color: rgb(240, 108, 100);
 }
 
