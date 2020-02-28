@@ -16,19 +16,19 @@
       <div class="wrapper">
         <h2 class="portfolio-title">Portfolio</h2>
         <p class="portfolio-intro">Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.</p>
-        <div class="portfolio-controls">
-          <button class="portfolio-toggle">All</button>
-          <button class="portfolio-toggle">Web Design</button>
-          <button class="portfolio-toggle">Graphic Design</button>
-          <button class="portfolio-toggle">Artwork</button>
-        </div>
+        <ul class="portfolio-control-list">
+          <li class="portfolio-control-item"><button class="toggle toggle-active">All</button></li>
+          <li class="portfolio-control-item"><button class="toggle">Web Design</button></li>
+          <li class="portfolio-control-item"><button class="toggle">Graphic Design</button></li>
+          <li class="portfolio-control-item"><button class="toggle">Artwork</button></li>
+        </ul>
         <div class="portfolio-content">
             <figure class="work">
               <figcaption class="work-name visually-hidden">
                 <h3 class="work-title">Sailboat</h3>
               </figcaption>
               <a class="work-link" href="http://link/to/full/version/need-to-be-changed">
-                <img class="work-image" src="assets/images/portfolio/sailboat.jpg" alt="Small sailboat with yellow sails" width="238" height="238">
+                <img class="work-image work-image-sailboat" src="assets/images/portfolio/sailboat.jpg" alt="Small sailboat with yellow sails" width="238" height="238">
               </a>
             </figure>
             <figure class="work">
@@ -36,7 +36,7 @@
                 <h3 class="work-title">Smiling schoolgirl</h3>
               </figcaption>
               <a class="work-link" href="http://link/to/full/version/need-to-be-changed">
-                <img class="work-image" src="assets/images/portfolio/face.jpg" alt="Face of smiling schoolgirl with ice cream in hand" width="364" height="273">
+                <img class="work-image work-image-face" src="assets/images/portfolio/face.jpg" alt="Face of smiling schoolgirl with ice cream in hand" width="364" height="273">
               </a>
             </figure>
             <figure class="work">
@@ -44,7 +44,7 @@
                 <h3 class="work-title">Fantasy city</h3>
               </figcaption>
               <a class="work-link" href="http://link/to/full/version/need-to-be-changed">
-                <img class="work-image" src="assets/images/portfolio/space-city.jpg" alt="Fantasy city against a black sky with stars" width="250" height="304">
+                <img class="work-image work-image-city" src="assets/images/portfolio/space-city.jpg" alt="Fantasy city against a black sky with stars" width="250" height="304">
               </a>
             </figure>
             <figure class="work">
@@ -52,7 +52,7 @@
                 <h3 class="work-title">Robotlove</h3>
               </figcaption>
               <a class="work-link" href="http://link/to/full/version/need-to-be-changed">
-                <img class="work-image" src="assets/images/portfolio/robot.jpg" alt="Robot with raised hand and heart over palm" width="262" height="196">
+                <img class="work-image work-image-robot" src="assets/images/portfolio/robot.jpg" alt="Robot with raised hand and heart over palm" width="262" height="196">
               </a>
             </figure>
             <figure class="work">
@@ -60,7 +60,7 @@
                 <h3 class="work-title">Ugly things</h3>
               </figcaption>
               <a class="work-link" href="http://link/to/full/version/need-to-be-changed">
-                <img class="work-image" src="assets/images/portfolio/bugs.jpg" alt="Different ugly things" width="242" height="276">
+                <img class="work-image work-image-bugs" src="assets/images/portfolio/bugs.jpg" alt="Different ugly things" width="242" height="276">
               </a>
             </figure>
             <figure class="work">
@@ -68,7 +68,7 @@
                 <h3 class="work-title">Abstraction</h3>
               </figcaption>
               <a class="work-link" href="http://link/to/full/version/need-to-be-changed">
-                <img class="work-image" src="assets/images/portfolio/sdk.jpg" alt="Abstract buildings and signs" width="258" height="194">
+                <img class="work-image work-image-sdk" src="assets/images/portfolio/sdk.jpg" alt="Abstract buildings and signs" width="258" height="194">
               </a>
             </figure>
             <figure class="work">
@@ -76,7 +76,7 @@
                 <h3 class="work-title">Space inhabitants</h3>
               </figcaption>
               <a class="work-link" href="http://link/to/full/version/need-to-be-changed">
-                <img class="work-image" src="assets/images/portfolio/star-inhabitants.jpg" alt="Cluster of space inhabitants of different colors" width="372" height="372">
+                <img class="work-image work-image-inhabitants" src="assets/images/portfolio/star-inhabitants.jpg" alt="Cluster of space inhabitants of different colors" width="372" height="372">
               </a>
             </figure>
             <figure class="work">
@@ -84,7 +84,7 @@
                 <h3 class="work-title">Hens and eggs</h3>
               </figcaption>
               <a class="work-link" href="http://link/to/full/version/need-to-be-changed">
-                <img class="work-image" src="assets/images/portfolio/hens.jpg" alt="Hens and eggs on the branches of plants" width="278" height="278">
+                <img class="work-image work-image-hens" src="assets/images/portfolio/hens.jpg" alt="Hens and eggs on the branches of plants" width="278" height="278">
               </a>
             </figure>
             <figure class="work">
@@ -92,7 +92,7 @@
                 <h3 class="work-title">Monster</h3>
               </figcaption>
               <a class="work-link" href="http://link/to/full/version/need-to-be-changed">
-                <img class="work-image" src="assets/images/portfolio/wonder.jpg" alt="Swamp monster with horns and a castel on his head" width="254" height="191">
+                <img class="work-image work-image-wonder" src="assets/images/portfolio/wonder.jpg" alt="Swamp monster with horns and a castel on his head" width="254" height="191">
               </a>
             </figure>
             <figure class="work">
@@ -100,7 +100,7 @@
                 <h3 class="work-title">Tape inscription</h3>
               </figcaption>
               <a class="work-link" href="http://link/to/full/version/need-to-be-changed">
-                <img class="work-image" src="assets/images/portfolio/tape.jpg" alt="Record player with an inscription from a tape over it" width="474" height="664">
+                <img class="work-image work-image-tape" src="assets/images/portfolio/tape.jpg" alt="Record player with an inscription from a tape over it" width="474" height="664">
               </a>
             </figure>
             <figure class="work">
@@ -108,7 +108,7 @@
                 <h3 class="work-title">Nibbler</h3>
               </figcaption>
               <a class="work-link" href="http://link/to/full/version/need-to-be-changed">
-                <img class="work-image" src="assets/images/portfolio/nibbler.jpg" alt="Egg-shaped nibbler with horns" width="414" height="412">
+                <img class="work-image work-image-nibbler" src="assets/images/portfolio/nibbler.jpg" alt="Egg-shaped nibbler with horns" width="414" height="412">
               </a>
             </figure>
             <figure class="work">
@@ -116,7 +116,7 @@
                 <h3 class="work-title">Indicator</h3>
               </figcaption>
               <a class="work-link" href="http://link/to/full/version/need-to-be-changed">
-                <img class="work-image" src="assets/images/portfolio/indicator.jpg" alt="Recording level indicator with control" width="296" height="426">
+                <img class="work-image work-image-indicator" src="assets/images/portfolio/indicator.jpg" alt="Recording level indicator with control" width="296" height="426">
               </a>
             </figure>
         </div>
@@ -131,23 +131,23 @@
           <article class="person">
             <img class="person-photo" src="assets/images/about/adam-jensen.jpg" alt="Adam Jensen" width="300" height="300">
             <h3 class="person-name">Adam Jensen</h3>
-            <p class="person-info">Quisque luctus, quam eget molestie commodo, lacus purus cursus purus, nec rutrum tellus dolor id lorem.</p>
-            <ul class="person-social-list">
-              <li class="person-social-item"><a class="person-social-link" href="https://www.facebook.com/" target="_blank">Facebook</a></li>
-              <li class="person-social-item"><a class="person-social-link" href="https://aboutme.google.com/" target="_blank">Google+</a></li>
-              <li class="person-social-item"><a class="person-social-link" href="https://twitter.com/" target="_blank">Twitter</a></li>
-              <li class="person-social-item"><a class="person-social-link" href="https://www.linkedin.com/" target="_blank">LinkedIn</a></li>
+            <p class="person-info person-info-jensen">Quisque luctus, quam eget molestie commodo, lacus purus cursus purus, nec rutrum tellus dolor id lorem.</p>
+            <ul class="person-social-list person-social-list-jensen">
+              <li class="person-social-item"><a class="person-social-link person-social-link-fb" href="https://www.facebook.com/" target="_blank">Facebook</a></li>
+              <li class="person-social-item"><a class="person-social-link person-social-link-g" href="https://aboutme.google.com/" target="_blank">Google+</a></li>
+              <li class="person-social-item"><a class="person-social-link person-social-link-tw" href="https://twitter.com/" target="_blank">Twitter</a></li>
+              <li class="person-social-item"><a class="person-social-link person-social-link-in" href="https://www.linkedin.com/" target="_blank">LinkedIn</a></li>
             </ul>
           </article>
           <article class="person">
             <img class="person-photo" src="assets/images/about/desmond-miles.jpg" alt="Desmond Miles" width="300" height="300">
-            <h3 class="person-name">Desmond Miles</h3>
+            <h3 class="person-name person-name-miles">Desmond Miles</h3>
             <p class="person-info">Curabitur vestibulum eget mauris quis laoreet. Phasellus in quam laoreet, viverra lacus ut, ultrices velit.</p>
             <ul class="person-social-list">
-              <li class="person-social-item"><a class="person-social-link" href="https://www.facebook.com/" target="_blank">Facebook</a></li>
-              <li class="person-social-item"><a class="person-social-link" href="https://aboutme.google.com/" target="_blank">Google+</a></li>
-              <li class="person-social-item"><a class="person-social-link" href="https://twitter.com/" target="_blank">Twitter</a></li>
-              <li class="person-social-item"><a class="person-social-link" href="https://www.linkedin.com/" target="_blank">LinkedIn</a></li>
+              <li class="person-social-item"><a class="person-social-link person-social-link-fb" href="https://www.facebook.com/" target="_blank">Facebook</a></li>
+              <li class="person-social-item"><a class="person-social-link person-social-link-g" href="https://aboutme.google.com/" target="_blank">Google+</a></li>
+              <li class="person-social-item"><a class="person-social-link person-social-link-tw" href="https://twitter.com/" target="_blank">Twitter</a></li>
+              <li class="person-social-item"><a class="person-social-link person-social-link-in" href="https://www.linkedin.com/" target="_blank">LinkedIn</a></li>
             </ul>
           </article>
           <article class="person">
@@ -155,10 +155,10 @@
             <h3 class="person-name">Scolara Visari</h3>
             <p class="person-info">Nulla sed nunc et tortor luctus faucibus. Morbi at aliquet turpis, et consequat felis. Quisque condimentum.</p>
             <ul class="person-social-list">
-              <li class="person-social-item"><a class="person-social-link" href="https://www.facebook.com/" target="_blank">Facebook</a></li>
-              <li class="person-social-item"><a class="person-social-link" href="https://aboutme.google.com/" target="_blank">Google+</a></li>
-              <li class="person-social-item"><a class="person-social-link" href="https://twitter.com/" target="_blank">Twitter</a></li>
-              <li class="person-social-item"><a class="person-social-link" href="https://www.linkedin.com/" target="_blank">LinkedIn</a></li>
+              <li class="person-social-item"><a class="person-social-link person-social-link-fb" href="https://www.facebook.com/" target="_blank">Facebook</a></li>
+              <li class="person-social-item"><a class="person-social-link person-social-link-g" href="https://aboutme.google.com/" target="_blank">Google+</a></li>
+              <li class="person-social-item"><a class="person-social-link person-social-link-tw" href="https://twitter.com/" target="_blank">Twitter</a></li>
+              <li class="person-social-item"><a class="person-social-link person-social-link-in" href="https://www.linkedin.com/" target="_blank">LinkedIn</a></li>
             </ul>
           </article>
         </div>

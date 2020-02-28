@@ -86,21 +86,6 @@
        url("assets/fonts/LatoLatin-LightItalic.ttf") format("truetype");
 }
 
-:root {
-  font-size: 100%;
-  font-family: "Lato", "Arial", sans-serif;
-  color: rgb(118, 126, 158);
-}
-
-.page {
-  margin: 0;
-}
-
-
-
-
-
-
 .visually-hidden {
   position: absolute;
  
@@ -122,4 +107,210 @@
   outline-style: dotted;
   outline-width: 1px;
   outline-color: rgb(255, 255, 255);
+}
+
+.wrapper {
+  width: 960px;
+  margin: 0 auto;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
+:root {
+  font-size: 100%;
+  font-family: "Lato", "Arial", sans-serif;
+  color: rgb(118, 126, 158);
+}
+
+.page {
+  margin: 0;
+}
+
+.portfolio {
+  width: 1020px;
+  min-height: 802px;
+  margin: 0 auto;
+  padding-top: 62.5px;
+  
+  background-color: rgb(45, 48, 58);
+  border-bottom: 6px solid rgb(50, 55, 70);
+}
+
+.portfolio-title {
+  margin: 0;
+  margin-bottom: 17px;
+  margin-left: -1px;
+
+  font-weight: 900;
+  font-size: 1.875rem;
+  color: rgb(102, 109, 137);
+  text-transform: capitalize;
+  letter-spacing: 0.008em;
+}
+
+.portfolio-intro {
+  margin: 0;
+  margin-bottom: 5px;
+
+  font-weight: 300;
+  font-size: 1.125rem;
+  line-height: 1.67em;
+  color: rgb(118, 126, 158);
+  letter-spacing: -0.015em;
+  word-spacing: 0.022em;
+}
+
+.portfolio-control-list {
+  display: flex;
+  flex-wrap: wrap;
+
+  margin: 0;
+  margin-bottom: 15px;
+  margin-left: -5px;
+  padding-left: 0;
+
+  list-style: none;
+}
+
+.portfolio-control-item {
+  margin: 4px 4.3px;
+  padding-left: 1px;
+}
+
+.toggle {
+  padding: 0 0.55em;
+
+  font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 1.7em;
+  color: rgb(118, 126, 158);
+  letter-spacing: -0.014em;
+
+  background-color: rgb(45, 48, 58);
+  border: 1px solid rgb(102, 109, 137);
+  border-radius: 5px;
+}
+
+.toggle::-moz-focus-inner {
+  border: 0;
+}
+
+.toggle-active {
+  color: rgb(222, 222, 222);
+
+  border-color: rgb(222, 222, 222);
+}
+
+.toggle:hover {
+  color: rgb(222, 222, 222);
+
+  border-color: rgb(222, 222, 222);
+
+  cursor: pointer;
+}
+
+.toggle-active:hover {
+  cursor: initial;
+}
+
+.portfolio-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220.7px, 1fr));
+  grid-template-rows: repeat(3, 187px);
+  gap: 20.3px 18.9px;
+
+  width: 100%;
+  margin: -2px -2.1px;
+  padding: 2.1px;
+
+  overflow-y: hidden;
+}
+
+.work {
+  position: relative;
+
+  margin: 0;
+  
+  overflow: hidden;
+}
+
+.work:not(:nth-child(-n+12)) {
+  display: none;
+}
+
+.work:focus-within {
+  outline: 1px dotted white;
+  outline-offset: 1px;
+}
+
+.work-image {
+  position: absolute;
+
+  vertical-align: top;
+  
+  transition: transform 0.2s linear;
+}
+
+.work-image:hover {
+  transform: scale(1.1);
+}
+
+.work-image-sailboat {
+  top: -10.6px;
+  left: -8.1px;
+}
+
+.work-image-face {
+  top: -42.5px;
+  left: -82px;
+}
+
+.work-image-city {
+  top: -0.8px;
+  left: -10px;
+}
+
+.work-image-robot {
+  top: -1.6px;
+  left: -22.9px;
+}
+
+.work-image-bugs {
+  top: -16px;
+  left: -10px;
+}
+
+.work-image-sdk {
+  top: -4px;
+  left: -16px;
+}
+
+.work-image-inhabitants {
+  top: -39px;
+  left: -30.3px;
+}
+
+.work-image-hens {
+  top: -32px;
+  left: -23.3px;
+}
+
+.work-image-wonder {
+  top: -2.5px;
+  left: -16px;
+}
+
+.work-image-tape {
+  top: -113px;
+  left: -140.6px;
+}
+
+.work-image-nibbler {
+  top: -175.5px;
+  left: -143.5px;
+}
+
+.work-image-indicator {
+  top: -60.1px;
+  left: -35.2px;
 }
