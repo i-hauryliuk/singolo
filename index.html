@@ -243,11 +243,11 @@
           <form class="feedback-form" action="http://echo.htmlacademy.ru" method="post">
             <p class="feedback-form-item">
               <label class="feedback-form-label visually-hidden" for="name">Name</label>
-              <input class="feedback-form-field" type="text" id="name" name="name" placeholder="Name (Required)" autocomplete="off" required>
+              <input class="feedback-form-field" type="text" id="name" name="name" placeholder="Name (Required)" autocomplete="off" required pattern="[\w\s]{5,25}" title="The name is a word with a length of 5 to 25 alphanumeric characters">
             </p>
             <p class="feedback-form-item">
               <label class="feedback-form-label visually-hidden" for="email">Email</label>
-              <input class="feedback-form-field" type="text" id="email" name="email" placeholder="Email (Required)" autocomplete="off" required>
+              <input class="feedback-form-field" type="email" id="email" name="email" placeholder="Email (Required)" autocomplete="off" required pattern="[^@]+@[^\.]+\..+" title="Input must be a valid email address">
             </p>
             <p class="feedback-form-item">
               <label class="feedback-form-label visually-hidden" for="subj">Subject</label>
@@ -265,7 +265,7 @@
             <h3 class="contact-info-title">Contact information</h3>
             <p class="contact-info-text">Quisque hendrerit purus dapibus, ornare nibh vitae, viver&shy;ra nibh. Fusce vitae aliquam tellus. Proin sit amet volutpat libero. Nulla sed nunc et tortor luctus faucibus. Morbi at aliquet turpis, et consequat felis.</p>
             <ul class="contact-info-list">
-              <li class="contact-info-item"><a class="contact-info-link contact-info-link-loc" href="#">Elm St. 14/05 Lost City</a></li>
+              <li class="contact-info-item"><a class="contact-info-link contact-info-link-loc" href="http://link/to-map/need/to-be/change/late">Elm St. 14/05 Lost City</a></li>
               <li class="contact-info-item"><a class="contact-info-link contact-info-link-tel" href="tel:+035283318635">03528 331 86 35</a></li>
               <li class="contact-info-item"><a class="contact-info-link contact-info-link-mail" href="mailto:info@singolo.com">info@singolo.com</a></li>
             </ul>
@@ -278,10 +278,10 @@
     <div class="wrapper page-footer-wrapper">
       <p class="copyright">© Copyright 2013 <span class="copyright-by">by PSDchat.com</span></p>
       <ul class="social-list page-footer-social-list">
-        <li class="social-list-item"><a class="social-list-link social-list-link-fb" href="https://www.facebook.com/" target="_blank">Facebook</a></li>
-        <li class="social-list-item"><a class="social-list-link social-list-link-g" href="https://aboutme.google.com/" target="_blank">Google+</a></li>
-        <li class="social-list-item"><a class="social-list-link social-list-link-tw" href="https://twitter.com/" target="_blank">Twitter</a></li>
-        <li class="social-list-item"><a class="social-list-link social-list-link-in" href="https://www.linkedin.com/" target="_blank">LinkedIn</a></li>
+        <li class="social-list-item"><a class="social-list-link social-list-link-fb page-footer-social-list-link" href="https://www.facebook.com/" target="_blank">Facebook</a></li>
+        <li class="social-list-item"><a class="social-list-link social-list-link-g page-footer-social-list-link" href="https://aboutme.google.com/" target="_blank">Google+</a></li>
+        <li class="social-list-item"><a class="social-list-link social-list-link-tw page-footer-social-list-link" href="https://twitter.com/" target="_blank">Twitter</a></li>
+        <li class="social-list-item"><a class="social-list-link social-list-link-in page-footer-social-list-link" href="https://www.linkedin.com/" target="_blank">LinkedIn</a></li>
       </ul>
     </div>
   </footer>
