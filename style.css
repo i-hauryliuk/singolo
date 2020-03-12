@@ -189,9 +189,10 @@
   top: 0.125em;
   right: -1em;
   color: rgb(73, 78, 98);
+  pointer-events: none;
 }
 
-.nav-item:not(.current):hover::before {
+.nav-item:not(.nav-item-current):hover::before {
   content: "";
   position: absolute;
   top: -0.2em;
