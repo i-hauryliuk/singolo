@@ -288,6 +288,7 @@
 
 .phone {
   position: relative;
+  cursor: pointer;
 }
 
 .phone-portrait {
@@ -306,6 +307,11 @@
   position: absolute;
   box-sizing: border-box;
   overflow: hidden;
+  cursor: default;
+}
+
+.phone-screen-off {
+  visibility: hidden;
 }
 
 .phone-screen-vert {

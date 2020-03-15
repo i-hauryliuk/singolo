@@ -3,7 +3,7 @@
 window.onload = function() {
 
   addMenuClickHandler();
-  addSliderNavigationClickHandler();
+  addSliderInteraction();
 }
 
 const addMenuClickHandler = () => {
@@ -30,13 +30,16 @@ const deactivateNewMenuItem = (selectedItem) => {
 
 let isAnimationAllowed = true;
 
-const addSliderNavigationClickHandler = () => {
+const addSliderInteraction = () => {
   document.querySelector('.slider').addEventListener('click', (event) => {
     if (event.target.classList.contains('slider-button') && isAnimationAllowed) {
       const pressedButton = event.target;
       const {currentSlide, nextSlide, direction} = getMovingData(pressedButton);
       const {oldSlide, newSlide, direction: toSide} = replaceSlides(currentSlide, nextSlide, direction);
       resetSliderState(oldSlide, newSlide, toSide);
+    }
+    if (event.target.classList.contains('phone-case') && isAnimationAllowed) {
+      event.target.nextElementSibling.children[0].classList.toggle('phone-screen-off');
     }
   });
 };
@@ -56,7 +59,7 @@ const getMovingData = (button) => {
     direction = 'toright';
   }
   return {currentSlide, nextSlide, direction};
-}
+};
 
 const replaceSlides = (oldSlide, newSlide, direction) => {
   if (direction === 'toleft') {
@@ -86,5 +89,5 @@ const resetSliderState = (oldSlide, newSlide, toSide) => {
     newSlide.removeEventListener('transitionend', resetState);
     isAnimationAllowed = true;
   });
-}
+};
 
