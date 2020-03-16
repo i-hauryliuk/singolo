@@ -4,6 +4,7 @@ window.onload = function() {
 
   addMenuClickHandler();
   addSliderInteraction();
+  addFormSubmissionHandler();
 }
 
 const addMenuClickHandler = () => {
@@ -91,3 +92,80 @@ const resetSliderState = (oldSlide, newSlide, toSide) => {
   });
 };
 
+const addFormSubmissionHandler = () => {
+  document.querySelector('.feedback-form').addEventListener('submit', (event) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const formData = {
+      name: form.querySelector('#name').value,
+      email: form.querySelector('#email').value,
+      subject: form.querySelector('#subj').value,
+      description: form.querySelector('#descr').value
+    };
+    const overlay = createOverlay();
+    const popUp = createPopUp(formData);
+    overlay.append(popUp);
+    const overlayBlock = showPopup(overlay);
+    closePopup(overlayBlock);
+  });
+};
+
+const createOverlay = () => {
+  const element = document.createElement('div');
+  element.classList.add('overlay');
+  return element;
+};
+
+const createPopUp = (data) => {
+  const popupContainer = document.createElement('div');
+  popupContainer.classList.add('popup');
+  const closeButton = document.createElement('button');
+  closeButton.classList.add('popup-close-btn');
+  closeButton.append('OK');
+  const titleBtock = document.createElement('p');
+  titleBtock.classList.add('popup-title');
+  let messageBlock = null;
+  let messageContainer = null;
+  let messageLabelBlock = null;
+  let messageContentBlock = null;
+
+  if (!data.name || !data.email) {
+    messageBlock = document.createElement('p');
+    messageBlock.classList.add('popup-message');
+    titleBtock.append('Message not sent');
+    messageBlock.append('To submit a form, you must fill in the fields: Name and Email');
+    popupContainer.append(titleBtock, messageBlock, closeButton);
+  } else {
+    messageContainer = document.createElement('dl');
+    messageContainer.classList.add('popup-message-container');
+    messageLabelBlock = document.createElement('dt');
+    messageLabelBlock.classList.add('popup-message-label');
+    messageContentBlock = document.createElement('dd');
+    messageContentBlock.classList.add('popup-message-content');
+
+    titleBtock.append('Message sent');
+    const subject = data.subject ? `Subject: ${data.subject}` : 'No subject';
+    messageLabelBlock.append(subject);
+    const description = data.description ? `Description: ${data.description}` : 'No description';
+    messageContentBlock.append(description);
+    messageContainer.append(messageLabelBlock, messageContentBlock);
+    popupContainer.append(titleBtock, messageContainer, closeButton);
+  }
+  return popupContainer;
+};
+
+const showPopup = (overlayBlock) => {
+  return document.body.appendChild(overlayBlock);
+};
+
+const closePopup = (overlay) => {
+  overlay.addEventListener('click', function closePopup(event) {
+    if (event.target.classList.contains('popup-close-btn') || event.target.classList.contains('overlay')) {
+      event.currentTarget.removeEventListener('click', closePopup);
+      document.body.removeChild(document.querySelector('.overlay'));
+      document.querySelectorAll('.feedback-form-field').forEach((field) => {
+        field.value = '';
+      });
+    }
+  })
+};

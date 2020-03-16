@@ -1183,3 +1183,75 @@
 .page-footer-social-list-link:focus {
   outline-color: rgb(255, 255, 255);
 }
+
+.overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(45, 48, 58, 0.6);
+}
+
+.popup {
+  display: flex;
+  flex-direction: column;
+  max-width: 50vw;
+  min-width: 30vw;
+  max-height: 50vh;
+  padding: 20px 20px;
+  border: 5px solid rgb(197, 78, 82);
+  border-radius: 5px;
+  background-color: rgb(240, 108, 100);
+}
+
+.popup-title {
+  margin: 0;
+  font-weight: 700;
+  font-size: 1.875rem;
+  font-family: "Lato", "Arial", sans-serif;
+  color: rgb(240, 216, 217);
+  text-align: center;
+}
+
+.popup-message {
+  font-weight: 400;
+  font-size: 1rem;
+  font-family: "Lato", "Arial", sans-serif;
+  color: rgb(240, 216, 217);
+}
+
+.popup-message-container {
+  overflow-y: auto;
+}
+
+.popup-message-label {
+  margin-bottom: 25px;
+  font-weight: 400;
+  font-size: 1.4rem;
+  font-family: "Lato", "Arial", sans-serif;
+  color: rgb(240, 216, 217);
+}
+
+.popup-message-content {
+  margin-left: 0;
+  font-weight: 400;
+  font-size: 1rem;
+  font-family: "Lato", "Arial", sans-serif;
+  color: rgb(240, 216, 217);
+}
+
+.popup-close-btn {
+  align-self: center;
+  padding: 0.5em 2em;
+  box-sizing: border-box;
+  font: inherit;
+  font-size: 1rem;
+  color: rgb(240, 216, 217);
+  border: none;
+  background-color: rgb(197, 78, 82);
+  cursor: pointer;
+}
