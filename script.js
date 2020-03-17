@@ -1,11 +1,14 @@
 'use strict';
 
 window.onload = function() {
-
   addMenuClickHandler();
   addSliderInteraction();
   addFormSubmissionHandler();
+  addPortfolioInteractionHandler();
 }
+
+let isAnimationAllowed = true;
+let isReplacementDone = true;
 
 const addMenuClickHandler = () => {
   document.querySelector('.nav-list').addEventListener('click', (event) => {
@@ -28,8 +31,6 @@ const deactivateNewMenuItem = (selectedItem) => {
   window.location.href = selectedItem.getAttribute('href');
   selectedItem.removeAttribute('href')
 };
-
-let isAnimationAllowed = true;
 
 const addSliderInteraction = () => {
   document.querySelector('.slider').addEventListener('click', (event) => {
@@ -168,4 +169,83 @@ const closePopup = (overlay) => {
       });
     }
   })
+};
+
+const addPortfolioInteractionHandler = () => {
+  document.querySelector('.portfolio').addEventListener('click', (event) => {
+    const eventSource = event.target;
+    if (eventSource.classList.contains('controls-toggle') && !eventSource.classList.contains('controls-toggle-active') && isReplacementDone) {
+      isReplacementDone = false;
+      removeCurrentToggleActivity();
+      removeSelectedPortfolioItemHighlighting();
+      const shuffledItems = shufflePortfolioItem();
+      replacePortfolioItems(shuffledItems);
+      addSelectedToggleActivity(eventSource);
+    }
+    if (eventSource.classList.contains('work-link') || eventSource.classList.contains('work-image')) {
+      event.preventDefault();
+      if (isReplacementDone) {
+        if (!eventSource.closest('.work').querySelector('.work-selected')) {
+          removeSelectedPortfolioItemHighlighting();
+          addSelectedPortfolioItemHighlighting(eventSource);
+        } else {
+          removeSelectedPortfolioItemHighlighting();
+        }
+      }
+    }
+  });
+};
+
+const removeCurrentToggleActivity = () => {
+  const activeToggle = document.querySelector('.controls-toggle-active');
+  activeToggle.classList.remove('controls-toggle-active');
+  activeToggle.removeAttribute('tabindex');
+};
+
+const addSelectedToggleActivity = (toggle) => {
+  toggle.classList.add('controls-toggle-active');
+  toggle.setAttribute('tabindex', '-1');
+};
+
+const shufflePortfolioItem = () => {
+  const itemsCopies = Array.from(document.querySelector('.portfolio-content').cloneNode(true).children);
+  for (let i = itemsCopies.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [itemsCopies[i], itemsCopies[j]] = [itemsCopies[j], itemsCopies[i]];
+  }
+  return itemsCopies;
+};
+
+const replacePortfolioItems = (items) => {
+  const portfolioContainer = document.querySelector('.portfolio-content');
+  let replacedItemIndex = 0;
+  function* itemGenerator(issueSource) {
+    for (let item of issueSource) {
+      yield item;
+    }
+  }
+  const itemSupplier = itemGenerator(items);
+  [...portfolioContainer.children].forEach(portfolioItem => {portfolioItem.style.visibility = 'hidden'});
+  let interval = setInterval(() => {
+    let item = itemSupplier.next();
+    if (item.done) {
+      clearInterval(interval);
+      isReplacementDone = true;
+    } else {
+      portfolioContainer.replaceChild(item.value, portfolioContainer.children[replacedItemIndex++]);
+    }
+  }, 150);
+};
+
+const removeSelectedPortfolioItemHighlighting = () => {
+  const selectedWork = document.querySelector('.work-selected');
+  if (selectedWork) {
+    selectedWork.remove();
+  }
+};
+
+const addSelectedPortfolioItemHighlighting = (selectedItem) => {
+  const selection = document.createElement('div');
+  selection.classList.add('work-selected');
+  selectedItem.closest('.work').prepend(selection);
 };

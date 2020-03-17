@@ -90,6 +90,7 @@
   font-size: 100%;
   font-family: "Lato", "Arial", sans-serif;
   color: rgb(118, 126, 158);
+  scroll-behavior: smooth;
 }
 
 :focus {
@@ -543,6 +544,7 @@
 }
 
 .portfolio {
+  position: relative;
   width: 1020px;
   min-height: 741px;
   margin: 0 auto;
@@ -555,7 +557,6 @@
 .portfolio-title {
   margin: 0;
   margin-bottom: 16px;
-  margin-left: -1px;
   font-weight: 900;
   font-size: 1.875rem;
   color: rgb(102, 109, 137);
@@ -579,13 +580,12 @@
   flex-wrap: wrap;
   margin: 0;
   margin-bottom: 15px;
-  margin-left: -4.9px;
   padding-left: 0;
   list-style: none;
 }
 
 .controls-item {
-  margin: 4px 5.5px;
+  margin: 4px 11px 4px 0;
 }
 
 .controls-toggle {
@@ -601,14 +601,6 @@
   border-radius: 5px;
 }
 
-.controls-toggle-all {
-  padding: 0.07em 0.6em;
-}
-
-.controls-toggle-art {
-  letter-spacing: 0.04em;
-}
-
 .controls-toggle::-moz-focus-inner {
   border: 0;
 }
@@ -616,6 +608,10 @@
 .controls-toggle-active {
   color: rgb(222, 222, 222);
   border-color: rgb(222, 222, 222);
+}
+
+.controls-toggle-active:focus {
+  outline: none;
 }
 
 .controls-toggle:hover {
@@ -632,17 +628,15 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   grid-template-rows: repeat(3, 187px);
-  gap: 20.1px 18.8px;
+  gap: 20px 20px;
   width: 100%;
-  margin: -2px -2px;
-  padding: 2px;
-  overflow-y: hidden;
+  /* margin: -2px -2px;
+  padding: 2px; */
 }
 
 .work {
   position: relative;
   margin: 0;
-  overflow: hidden;
 }
 
 .work:not(:nth-child(-n+12)) {
@@ -653,6 +647,30 @@
   outline: 1px dotted white;
   outline-offset: 1px;
 }
+
+.work-selected {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 103.2%;
+  height: 104%;
+  border: 5px solid rgb(240, 108, 100);
+  border-radius: 5px;
+  transform: translate(-50%, -50%);
+}
+
+.work-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* .work-link {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+} */
 
 .work-image {
   position: absolute;
