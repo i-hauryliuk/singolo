@@ -29,7 +29,7 @@
   </header>
   <main class="page-content">
     <h1 class="visually-hidden">Singolo Web Studio</h1>
-    <section class="slider">
+    <section class="slider" id="home">
       <div class="wrapper slider-wrapper">
         <h2 class="slider-title visually-hidden">Thoughts on Design</h2>
         <div class="slide slide-interactive slide-displayed">
@@ -268,7 +268,7 @@
           <form class="feedback-form" action="https://echo.htmlacademy.ru" method="post">
             <p class="feedback-form-item">
               <label class="feedback-form-label visually-hidden" for="name">Name</label>
-              <input class="feedback-form-field" type="text" id="name" name="name" placeholder="Name (Required)" required pattern="[\w\s]{5,25}" autocomplete="off" title="The name is a word with a length of 5 to 25 alphanumeric characters">
+              <input class="feedback-form-field" type="text" id="name" name="name" placeholder="Name (Required)" required pattern="([\w\s]|[А-Яа-я0-9_\s]){5,25}" autocomplete="off" title="The name is a word with a length of 5 to 25 alphanumeric characters">
             </p>
             <p class="feedback-form-item">
               <label class="feedback-form-label visually-hidden" for="email">Email</label>
@@ -280,7 +280,7 @@
             </p>
             <p class="feedback-form-item">
               <label class="feedback-form-label visually-hidden" for="descr">Description</label>
-              <textarea class="feedback-form-field feedback-form-field-descr" id="descr" name="descr" placeholder="Describe your project in detail..." autocomplete="off" cols="30" rows="9"></textarea>
+              <textarea class="feedback-form-field feedback-form-field-descr" id="descr" name="descr" placeholder="Describe your project in detail..." autocomplete="off" cols="30" rows="9" maxlength="1000"></textarea>
             </p>
             <p class="feedback-form-item">
               <button class="feedback-form-button" type="submit">Submit</button>

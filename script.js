@@ -1,20 +1,52 @@
 'use strict';
 
 window.onload = function() {
+  resetPositionOnRefresh();
+  addPageScrollHandler();
   addMenuClickHandler();
   addSliderInteraction();
-  addFormSubmissionHandler();
   addPortfolioInteractionHandler();
+  addFormSubmissionHandler();
 }
 
 let isAnimationAllowed = true;
 let isReplacementDone = true;
+let isScrollingAllowed = true;
+
+const resetPositionOnRefresh = () => {
+  isScrollingAllowed = false;
+  window.scrollTo(0, 0);
+  isScrollFinished(document.querySelector('#home'));
+};
+
+const addPageScrollHandler = () => {
+  window.addEventListener('scroll', (event) => {
+    if (isScrollingAllowed) {
+      const offsetFromHeaderBottom = window.pageYOffset + document.querySelector('.page-header').offsetHeight;
+      const sections = [...document.querySelectorAll('.nav-list .nav-link')].map(link => {
+        return document.querySelector(`#${link.dataset.href}`)
+      });
+      sections.forEach(section => {
+        if ((section.offsetTop <= offsetFromHeaderBottom
+             && section.offsetTop + section.offsetHeight > offsetFromHeaderBottom)
+             || window.pageYOffset >= document.body.offsetHeight - window.innerHeight) {
+          activateOldMenuItem();
+          deactivateNewMenuItem(document.querySelector(`[href="#${section.id}"]`));
+        }
+      });
+    }
+  });
+};
 
 const addMenuClickHandler = () => {
   document.querySelector('.nav-list').addEventListener('click', (event) => {
     if (event.target.classList.contains('nav-link') && event.target.hasAttribute('href')) {
-      activateOldMenuItem();
-      deactivateNewMenuItem(event.target);
+      event.preventDefault();
+      if (isScrollingAllowed) {
+        isScrollingAllowed = false;
+        activateOldMenuItem();
+        deactivateNewMenuItem(event.target);
+      }
     }
   });
 };
@@ -28,9 +60,24 @@ const activateOldMenuItem = () => {
 
 const deactivateNewMenuItem = (selectedItem) => {
   selectedItem.closest('.nav-item').classList.add('nav-item-current');
-  window.location.href = selectedItem.getAttribute('href');
-  selectedItem.removeAttribute('href')
+  if (!isScrollingAllowed) {
+    const sectionToGo = document.querySelector(`#${selectedItem.dataset.href}`);
+    const header = document.querySelector('.page-header');
+    window.scrollTo(0, sectionToGo.offsetTop - (header.offsetHeight));
+    isScrollFinished(sectionToGo);
+  }
+  selectedItem.removeAttribute('href');
 };
+
+const isScrollFinished = (targetSection) => {
+  const checkIfScrollToIsFinished = setInterval(() => {
+    if ((Math.round(window.pageYOffset) === targetSection.offsetTop - document.querySelector('.page-header').offsetHeight)
+         || window.pageYOffset >= document.body.offsetHeight - window.innerHeight) {
+      isScrollingAllowed = true;
+      clearInterval(checkIfScrollToIsFinished);
+    }
+  }, 25);
+}
 
 const addSliderInteraction = () => {
   document.querySelector('.slider').addEventListener('click', (event) => {
@@ -91,84 +138,6 @@ const resetSliderState = (oldSlide, newSlide, toSide) => {
     newSlide.removeEventListener('transitionend', resetState);
     isAnimationAllowed = true;
   });
-};
-
-const addFormSubmissionHandler = () => {
-  document.querySelector('.feedback-form').addEventListener('submit', (event) => {
-    event.preventDefault();
-    const form = event.currentTarget;
-    const formData = {
-      name: form.querySelector('#name').value,
-      email: form.querySelector('#email').value,
-      subject: form.querySelector('#subj').value,
-      description: form.querySelector('#descr').value
-    };
-    const overlay = createOverlay();
-    const popUp = createPopUp(formData);
-    overlay.append(popUp);
-    const overlayBlock = showPopup(overlay);
-    closePopup(overlayBlock);
-  });
-};
-
-const createOverlay = () => {
-  const element = document.createElement('div');
-  element.classList.add('overlay');
-  return element;
-};
-
-const createPopUp = (data) => {
-  const popupContainer = document.createElement('div');
-  popupContainer.classList.add('popup');
-  const closeButton = document.createElement('button');
-  closeButton.classList.add('popup-close-btn');
-  closeButton.append('OK');
-  const titleBtock = document.createElement('p');
-  titleBtock.classList.add('popup-title');
-  let messageBlock = null;
-  let messageContainer = null;
-  let messageLabelBlock = null;
-  let messageContentBlock = null;
-
-  if (!data.name || !data.email) {
-    messageBlock = document.createElement('p');
-    messageBlock.classList.add('popup-message');
-    titleBtock.append('Message not sent');
-    messageBlock.append('To submit a form, you must fill in the fields: Name and Email');
-    popupContainer.append(titleBtock, messageBlock, closeButton);
-  } else {
-    messageContainer = document.createElement('dl');
-    messageContainer.classList.add('popup-message-container');
-    messageLabelBlock = document.createElement('dt');
-    messageLabelBlock.classList.add('popup-message-label');
-    messageContentBlock = document.createElement('dd');
-    messageContentBlock.classList.add('popup-message-content');
-
-    titleBtock.append('Message sent');
-    const subject = data.subject ? `Subject: ${data.subject}` : 'No subject';
-    messageLabelBlock.append(subject);
-    const description = data.description ? `Description: ${data.description}` : 'No description';
-    messageContentBlock.append(description);
-    messageContainer.append(messageLabelBlock, messageContentBlock);
-    popupContainer.append(titleBtock, messageContainer, closeButton);
-  }
-  return popupContainer;
-};
-
-const showPopup = (overlayBlock) => {
-  return document.body.appendChild(overlayBlock);
-};
-
-const closePopup = (overlay) => {
-  overlay.addEventListener('click', function closePopup(event) {
-    if (event.target.classList.contains('popup-close-btn') || event.target.classList.contains('overlay')) {
-      event.currentTarget.removeEventListener('click', closePopup);
-      document.body.removeChild(document.querySelector('.overlay'));
-      document.querySelectorAll('.feedback-form-field').forEach((field) => {
-        field.value = '';
-      });
-    }
-  })
 };
 
 const addPortfolioInteractionHandler = () => {
@@ -248,4 +217,88 @@ const addSelectedPortfolioItemHighlighting = (selectedItem) => {
   const selection = document.createElement('div');
   selection.classList.add('work-selected');
   selectedItem.closest('.work').prepend(selection);
+};
+
+const addFormSubmissionHandler = () => {
+  document.querySelector('.feedback-form').addEventListener('submit', (event) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const formData = {
+      name: form.querySelector('#name').value,
+      email: form.querySelector('#email').value,
+      subject: form.querySelector('#subj').value,
+      description: form.querySelector('#descr').value
+    };
+    const overlay = createOverlay();
+    const popUp = createPopUp(formData);
+    overlay.append(popUp);
+    const overlayBlock = showPopup(overlay);
+    closePopup(overlayBlock);
+  });
+};
+
+const createOverlay = () => {
+  const element = document.createElement('div');
+  element.classList.add('overlay');
+  return element;
+};
+
+const createPopUp = (data) => {
+  const popupContainer = document.createElement('div');
+  popupContainer.classList.add('popup');
+  const closeButton = document.createElement('button');
+  closeButton.classList.add('popup-close-btn');
+  closeButton.append('OK');
+  const titleBtock = document.createElement('p');
+  titleBtock.classList.add('popup-title');
+  let messageBlock = null;
+  let messageContainer = null;
+  let messageLabelBlock = null;
+  let messageContentBlock = null;
+
+  if (!data.name || !data.email) {
+    titleBtock.append('Message not sent');
+    messageBlock = document.createElement('p');
+    messageBlock.classList.add('popup-message');
+    messageBlock.append('To submit a form, you must fill in the fields: Name and Email');
+    popupContainer.append(titleBtock, messageBlock, closeButton);
+  } else {
+    titleBtock.append('Message sent');
+    messageContainer = document.createElement('dl');
+    messageContainer.classList.add('popup-message-container');
+    for (let field in data) {
+      if (field === 'subject' || field === 'description') {
+        messageLabelBlock = document.createElement('dt');
+        messageLabelBlock.classList.add('popup-message-label');
+        messageContentBlock = document.createElement('dd');
+        messageContentBlock.classList.add('popup-message-content');
+        if (data[field]) {
+          messageLabelBlock.append(`${field[0].toUpperCase()}${field.slice(1)}:`);
+          messageContentBlock.append(data[field]);
+        } else {
+          messageLabelBlock.append(`No ${field}`);
+        }
+        messageContainer.append(messageLabelBlock, messageContentBlock);
+      }
+    }
+    popupContainer.append(titleBtock, messageContainer, closeButton);
+  }
+  
+  return popupContainer;
+};
+
+const showPopup = (overlayBlock) => {
+  return document.body.appendChild(overlayBlock);
+};
+
+const closePopup = (overlay) => {
+  overlay.addEventListener('click', function closePopup(event) {
+    if (event.target.classList.contains('popup-close-btn') || event.target.classList.contains('overlay')) {
+      event.currentTarget.removeEventListener('click', closePopup);
+      document.body.removeChild(document.querySelector('.overlay'));
+      document.querySelectorAll('.feedback-form-field').forEach((field) => {
+        field.value = '';
+      });
+    }
+  })
 };
