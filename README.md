@@ -7,10 +7,12 @@ Web site for web-development and design studio
 >  - part 2: "part2-dev" branch
 >  - part 3: "part3-dev" branch
 >  - full version: "full-version-dev" branch
+>  - dom: "singolo-dom" branch
 
 >Technologies used in the development:
 >  - HTML
 >  - CSS
+>  - JS
 
 <br>
 The final page is available at the following link: https://i-hauryliuk.github.io/singolo/
