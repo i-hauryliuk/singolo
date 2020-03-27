@@ -7,11 +7,15 @@ window.onload = function() {
   addSliderInteraction();
   addPortfolioInteractionHandler();
   addFormSubmissionHandler();
+  addHamburgerClickHandler();
+  addHamburgerRotationWatcher();
 }
 
 let isAnimationAllowed = true;
 let isReplacementDone = true;
 let isScrollingAllowed = true;
+let isHamburgerRotationCompleted = true;
+
 
 const resetPositionOnRefresh = () => {
   isScrollingAllowed = false;
@@ -22,14 +26,14 @@ const resetPositionOnRefresh = () => {
 const addPageScrollHandler = () => {
   window.addEventListener('scroll', (event) => {
     if (isScrollingAllowed) {
-      const offsetFromHeaderBottom = window.pageYOffset + document.querySelector('.page-header').offsetHeight;
+      const offsetFromHeaderBottom = Math.round(window.pageYOffset) + document.querySelector('.page-header').offsetHeight;
       const sections = [...document.querySelectorAll('.nav-list .nav-link')].map(link => {
         return document.querySelector(`#${link.dataset.href}`)
       });
       sections.forEach(section => {
         if ((section.offsetTop <= offsetFromHeaderBottom
              && section.offsetTop + section.offsetHeight > offsetFromHeaderBottom)
-             || window.pageYOffset >= document.body.offsetHeight - window.innerHeight) {
+             || Math.round(window.pageYOffset) >= document.body.offsetHeight - window.innerHeight) {
           activateOldMenuItem();
           deactivateNewMenuItem(document.querySelector(`[href="#${section.id}"]`));
         }
@@ -72,7 +76,7 @@ const deactivateNewMenuItem = (selectedItem) => {
 const isScrollFinished = (targetSection) => {
   const checkIfScrollToIsFinished = setInterval(() => {
     if ((Math.round(window.pageYOffset) === targetSection.offsetTop - document.querySelector('.page-header').offsetHeight)
-         || window.pageYOffset >= document.body.offsetHeight - window.innerHeight) {
+         || Math.round(window.pageYOffset) >= document.body.offsetHeight - window.innerHeight) {
       isScrollingAllowed = true;
       clearInterval(checkIfScrollToIsFinished);
     }
@@ -222,25 +226,36 @@ const addSelectedPortfolioItemHighlighting = (selectedItem) => {
 const addFormSubmissionHandler = () => {
   document.querySelector('.feedback-form').addEventListener('submit', (event) => {
     event.preventDefault();
-    const form = event.currentTarget;
-    const formData = {
-      name: form.querySelector('#name').value,
-      email: form.querySelector('#email').value,
-      subject: form.querySelector('#subj').value,
-      description: form.querySelector('#descr').value
-    };
-    const overlay = createOverlay();
-    const popUp = createPopUp(formData);
-    overlay.append(popUp);
-    const overlayBlock = showPopup(overlay);
-    closePopup(overlayBlock);
+    if (!document.querySelector('.popup')) {
+      const form = event.currentTarget;
+      const formData = {
+        name: form.querySelector('#name').value,
+        email: form.querySelector('#email').value,
+        subject: form.querySelector('#subj').value,
+        description: form.querySelector('#descr').value
+      };
+      showOverlay();
+      showPopUp(formData);
+    }
   });
+};
+
+const showOverlay = () => {
+  const overlayBlock = createOverlay();
+  document.querySelector('.page').append(overlayBlock);
 };
 
 const createOverlay = () => {
   const element = document.createElement('div');
   element.classList.add('overlay');
   return element;
+};
+
+const showPopUp = (data) => {
+  const popUpBlock = createPopUp(data);
+  const displayedPopUp = document.querySelector('.page').appendChild(popUpBlock);
+  displayedPopUp.querySelector('.popup-close-btn').focus();
+  addPopUpCloseHandler(displayedPopUp);
 };
 
 const createPopUp = (data) => {
@@ -287,18 +302,82 @@ const createPopUp = (data) => {
   return popupContainer;
 };
 
-const showPopup = (overlayBlock) => {
-  return document.body.appendChild(overlayBlock);
+const addPopUpCloseHandler = (popUp) => {
+  popUp.addEventListener('click', function closePopUp(event) {
+    if (event.target.classList.contains('popup-close-btn')) {
+      popUp.removeEventListener('click', closePopUp);
+      document.querySelector('.overlay').remove();
+      popUp.remove();
+      clearFormField();
+    }
+  });
 };
 
-const closePopup = (overlay) => {
-  overlay.addEventListener('click', function closePopup(event) {
-    if (event.target.classList.contains('popup-close-btn') || event.target.classList.contains('overlay')) {
-      event.currentTarget.removeEventListener('click', closePopup);
-      document.body.removeChild(document.querySelector('.overlay'));
-      document.querySelectorAll('.feedback-form-field').forEach((field) => {
-        field.value = '';
-      });
-    }
-  })
+const clearFormField = () => {
+  document.querySelectorAll('.feedback-form-field').forEach((field) => {
+    field.value = '';
+  });
 };
+
+
+
+// ==================================
+
+const addHamburgerClickHandler = () => {
+  document.querySelector('.header-switcher').addEventListener('click', (event) => {
+    if (isHamburgerRotationCompleted) {
+      const eventSource = event.currentTarget;
+      if (!eventSource.classList.contains('header-switcher-active')) {
+        eventSource.classList.add('header-switcher-active');
+        displayMobileOverlay();
+        displayHeaderHorizontally();
+      } else {
+        document.querySelector('.page').classList.remove('overlay');
+        eventSource.classList.remove('header-switcher-active');
+        displayHeaderNormally();
+        hideMobileOverlay();
+      }
+    }
+  });
+};
+
+const addHamburgerRotationWatcher = () => {
+  document.querySelector('.header-switcher').addEventListener('transitionrun', (event) => {
+    isHamburgerRotationCompleted = false;
+  });
+  document.querySelector('.header-switcher').addEventListener('transitionend', (event) => {
+    isHamburgerRotationCompleted = true;
+  });
+};
+
+const displayMobileOverlay = () => {
+  document.querySelector('.page').classList.add('overlay');
+};
+
+const hideMobileOverlay = () => {
+  document.querySelector('.page').classList.remove('overlay');
+};
+
+const displayHeaderHorizontally = () => {
+  const pageHeader = document.querySelector('.page-header');
+  pageHeader.addEventListener('transitionend', isHeaderHorizontal);
+  pageHeader.classList.add('page-header-horizontal');
+}
+
+const isHeaderHorizontal = () => {
+  const pageHeader = document.querySelector('.page-header');
+  if (event.target === pageHeader && event.propertyName === 'height') {
+    pageHeader.removeEventListener('transitionend', isHeaderHorizontal);
+    displayNavigation();
+  }
+};
+
+const displayNavigation = () => {
+  document.querySelector('.header-nav').classList.add('header-nav-horizontal');
+};
+
+const displayHeaderNormally = () => {
+  const pageHeader = document.querySelector('.page-header');
+  pageHeader.querySelector('.header-nav').classList.remove('header-nav-horizontal')
+  pageHeader.classList.remove('page-header-horizontal');
+}
