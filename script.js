@@ -339,6 +339,9 @@ const clearFormField = () => {
 
 const addHamburgerClickHandler = () => {
   document.querySelector('.header-switcher').addEventListener('click', (event) => {
+    if (document.querySelector('.popup')) {
+      document.querySelector('.popup').querySelector('.popup-close-btn').click();
+    }
     if (isHamburgerRotationCompleted) {
       const eventSource = event.currentTarget;
       if (!eventSource.classList.contains('header-switcher-active')) {

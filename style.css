@@ -178,7 +178,6 @@
   height: 2px;
   border-radius: 4px;
   background-color: rgb(255, 255, 255);
-  /* transform: translateY(-50%); */
 }
 
 .header-switcher::after {
@@ -191,7 +190,6 @@
   height: 2px;
   border-radius: 4px;
   background-color: rgb(255, 255, 255);
-  /* transform: translateY(-50%); */
 }
 
 .header-switcher-dash {
