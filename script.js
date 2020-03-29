@@ -26,7 +26,7 @@ const resetPositionOnRefresh = () => {
 const addPageScrollHandler = () => {
   window.addEventListener('scroll', (event) => {
     if (isScrollingAllowed) {
-      let offsetFromHeaderBottom = Math.round(window.pageYOffset);
+      let offsetFromHeaderBottom = Math.ceil(window.pageYOffset);
       if (!document.querySelector('.page-header-horizontal')) {
         offsetFromHeaderBottom += document.querySelector('.page-header').offsetHeight;
       } else {
@@ -38,7 +38,7 @@ const addPageScrollHandler = () => {
       sections.forEach(section => {
         if ((section.offsetTop <= offsetFromHeaderBottom
              && section.offsetTop + section.offsetHeight > offsetFromHeaderBottom)
-             || Math.round(window.pageYOffset) >= document.body.offsetHeight - window.innerHeight) {
+             || Math.ceil(window.pageYOffset) >= document.body.offsetHeight - window.innerHeight) {
           activateOldMenuItem();
           deactivateNewMenuItem(document.querySelector(`[href="#${section.id}"]`));
         }
@@ -95,7 +95,7 @@ const isScrollFinished = (targetSection) => {
       offsetValue = 71;
     }
     if ((Math.round(window.pageYOffset) === targetSection.offsetTop - offsetValue)
-         || Math.round(window.pageYOffset) >= document.body.offsetHeight - window.innerHeight) {
+         || Math.ceil(window.pageYOffset) >= document.body.offsetHeight - window.innerHeight) {
       isScrollingAllowed = true;
       clearInterval(checkIfScrollToIsFinished);
     }
@@ -202,7 +202,7 @@ const addSelectedToggleActivity = (toggle) => {
 const shufflePortfolioItem = () => {
   const itemsCopies = Array.from(document.querySelector('.portfolio-content').cloneNode(true).children);
   for (let i = itemsCopies.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
+    const j = Math.ceil(Math.random() * (i + 1));
     [itemsCopies[i], itemsCopies[j]] = [itemsCopies[j], itemsCopies[i]];
   }
   return itemsCopies;
