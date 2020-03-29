@@ -202,7 +202,7 @@ const addSelectedToggleActivity = (toggle) => {
 const shufflePortfolioItem = () => {
   const itemsCopies = Array.from(document.querySelector('.portfolio-content').cloneNode(true).children);
   for (let i = itemsCopies.length - 1; i > 0; i--) {
-    const j = Math.ceil(Math.random() * (i + 1));
+    const j = Math.floor(Math.random() * (i + 1));
     [itemsCopies[i], itemsCopies[j]] = [itemsCopies[j], itemsCopies[i]];
   }
   return itemsCopies;
